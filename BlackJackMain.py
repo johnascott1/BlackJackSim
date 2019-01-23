@@ -20,52 +20,61 @@ deck = {'Ace of Spades':1, '2 of Spades':2, '3 of Spades':3,
         '10 of Diamonds':10, 'Jack of Diamonds':10,
         'Queen of Diamonds':10, 'King of Diamonds': 10}
 
+def main():
+    deal()
+
+if __name__ == "__main__":
+    main()
+
+#Calculates value for whichever hand's passed to it
 def value(hand):
     hand_value = 0
     for i in hand:
         hand_value += deck[i]
     return hand_value
 
-
-def main():
+def deal():
     keys = list(deck)
     random.shuffle(keys)
-
+    #list for both the players and computers hand
     player1_hand = []
     computer_hand = []
-
+    #the default value for each score is zero
     player1_score = 0
     computer_score = 0
+    #Two cards are drawn for the player at the beginning of their turn. Two cards are then removed from the deck via
+    # 'pop' method
     for i in range(2):
         player1_hand.append(keys.pop())
+
     while player1_score < 21:
         player1_score = value(player1_hand)
-        print ("Player 1's hand is ", player1_hand, "The value is ", player1_score)
+        print("Player 1's hand is ", player1_hand, "The value is ", player1_score)
+        # if the score is less than 21, the player has the option to draw another card
         if player1_score < 21:
-            response = int(input('How many cards should I deal to player1? '))
-            if response == 0:
-                break
+            response = str(input('Draw again? '))
+            if response.lower() == 'y':
+                player1_hand.append(keys.pop())
             else:
-                for i in range(int(response)):
-                    player1_hand.append(keys.pop())
+                break
         else:
-            print("Opponent's Turn")
             break
-    #dealing to the Computer
+
+    # dealing to the Computer
+    print("Opponent's Turn")
     for i in range(2):
         computer_hand.append(keys.pop())
     while computer_score < 21:
         computer_score = value(computer_hand)
-        print ("Opponents's hand is ", computer_hand, "The value is ", computer_score)
+        print("Opponents's hand is ", computer_hand, "The value is ", computer_score)
         if computer_score >= 17:
-            print("Game Over")
             break
         else:
             computer_hand.append(keys.pop())
+    print("")
+    # The player and computer final hands and scores are displayed
+    print("Your Hand", player1_hand, value(player1_hand))
+    print("Opponents's Hand", computer_hand, value(computer_hand))
+    print("")
+    print("Game Over")
 
-
-    print (player1_hand, value(player1_hand))
-    print (computer_hand, value(computer_hand))
-
-if __name__ == "__main__":
-    main()

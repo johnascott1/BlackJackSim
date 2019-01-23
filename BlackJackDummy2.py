@@ -11,8 +11,8 @@ def value(hand):
 
 def main():
     deckInstance = DeckClass
-    deckInstance.
-    keys = list(deck)
+    #deckInstance.
+    #keys = list(deck)
     random.shuffle(keys)
 
     player1_hand = []
